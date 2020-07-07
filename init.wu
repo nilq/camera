@@ -1,0 +1,33 @@
+import lover { graphics }
+
+Camera: struct {
+    x: float
+    y: float
+    scale: float
+    angle: float
+}
+
+implement Camera {
+    default: fun(x: float, y: float) -> Camera {
+        new Camera {
+            x: x
+            y: y
+            scale: 1
+            angle: 0
+        }
+    }
+
+    draw: fun(self, f: fun -> any) {
+        graphics push()
+
+        scale := self scale
+
+        graphics translate(graphics getWidth() / 2.0 - self x, graphics getHeight() / 2.0 - self y)
+
+        graphics rotate(-self angle)
+
+        f()
+
+        graphics pop()
+    }
+}
